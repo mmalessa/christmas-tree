@@ -50,7 +50,9 @@ sudo systemctl start christmastree.service
 # Hardware
 ```
 Power Supply (+)---------> Strip +
+
 PI PIN 6 (GND)-------|
 Power Supply (GND)---+---> Strip GND
+
 PI PIN 12 (GPIO18)-------> Strip Data Input
 ```
