@@ -40,15 +40,36 @@ var white_tail = []uint32 {
 }
 
 var vertical_tail = []uint32 {
-    0x106000,
-    0x107000,
-    0x107000,
-    0x106000,
-    0x106000,
-    0x105000,
-    0x105000,
-    0x103000,
-    baseColor,
+    0x002000,
+    0x004000,
+    0x004000,
+    0x006000,
+    0x006000,
+    0x005000,
+    0x004000,
+    0x003000,
+    0x000020,
+    0x000040,
+    0x000040,
+    0x000060,
+    0x000060,
+    0x000050,
+    0x000040,
+    0x000030,
+    0x200000,
+    0x400000,
+    0x400000,
+    0x600000,
+    0x600000,
+    0x500000,
+    0x400000,
+    0x300000,
+}
+
+var carousel_tail = []uint32 {
+            0x004000,  // red
+            0x000040,  // blue
+            0x400000,  // green
 }
 
 var test_tail = []uint32 {
@@ -91,12 +112,19 @@ func main() {
                 os.Exit(-1)
             }
             for {
-		err = waterfall()
+                err = waterfall(vertical_tail[0:7])
+                time.Sleep(4000 * time.Millisecond)
+                err = waterfall(vertical_tail[8:15])
+                time.Sleep(4000 * time.Millisecond)
+                err = waterfall(vertical_tail[16:23])
+                time.Sleep(4000 * time.Millisecond)
+		//err = fallDown(rainbow_tail)
+		//err = carousel()
 	        if err != nil {
 		    fmt.Println("Error during wipe " + err.Error())
                     os.Exit(-1)
 	        }
-                time.Sleep(5000 * time.Millisecond)
+//                time.Sleep(5000 * time.Millisecond)
 	    }
 	}
 }
@@ -110,7 +138,7 @@ func safeSetLed(id int, color uint32) error {
 
 func fallDown(tail []uint32) error {
     var taillen = len(tail)
-    for i := count; i >= (0 - taillen) ; i-- {
+    for i := count; i >= (0 - taillen) + 1 ; i-- {
         for t :=0; t < taillen; t++ {
            safeSetLed(i + t, tail[t])
         }
@@ -156,16 +184,16 @@ func colorWipe(color uint32) error {
 	return nil
 }
 
-func waterfall() error {
+func waterfall(tail []uint32) error {
     var rownum = len(tree_matrix)
-    var tailnum = len(vertical_tail)
+    var tailnum = len(tail)
     for l :=0; l < (rownum + tailnum); l++ {
         for t := 0; t < tailnum; t++ {
 	    var y = l - t;
 	    if (y >=0 && y < rownum) {
                 var colnumber = len(tree_matrix[y])
                 for x :=0; x < colnumber; x++ {
-                    safeSetLed(tree_matrix[y][x], vertical_tail[t])
+                    safeSetLed(tree_matrix[y][x], tail[t])
                 }
             }
 	}
@@ -182,39 +210,22 @@ func waterfall() error {
 func carousel() error {
     var colnum = len(tree_matrix[0])
     var rownum = len(tree_matrix)
-    var tailnum = len(vertical_tail)
-    var prevy = -1
-    for x := 0; x < colnum; x++ {
-	prevy = -1;
-        for y := 0; y < rownum; y++ {
-	    if  prevy != y {
-                safeSetLed(tree_matrix[y][x], vertical_tail[0])
-		prevy = y
+    var tailnum = len(carousel_tail)
+
+    for c :=0; c < tailnum; c++ {
+        for x := 0; x < colnum; x++ {
+            for y := 0; y < rownum; y++ {
+                safeSetLed(tree_matrix[y][x], carousel_tail[c])
             }
+            err := ws2811.Render()
+            if err != nil {
+                ws2811.Clear()
+                return err
+            }
+            time.Sleep(tick * time.Millisecond)
 	}
-        err := ws2811.Render()
-        if err != nil {
-           ws2811.Clear()
-            return err
-        }
-        time.Sleep(tick * time.Millisecond)
     }
 
-    for x := 0; x < colnum; x++ {
-	prevy = -1
-        for y := 0; y < rownum; y++ {
-            if prevy != y {
-                safeSetLed(tree_matrix[y][x], vertical_tail[tailnum - 1])
-		prevy = y
-            }
-	}
-        err := ws2811.Render()
-        if err != nil {
-           ws2811.Clear()
-            return err
-        }
-        time.Sleep(tick * time.Millisecond)
-    }
     return nil
 }
 
