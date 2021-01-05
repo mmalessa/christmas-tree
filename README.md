@@ -17,7 +17,7 @@ go get github.com/mmalessa/christmasTree
    *-*
   *-*-*
  *-*-*-*
-*-*-*-*-*
+*-*-*-*-*------------ [Raspberry PI / Power Supply]
 ```
 - we map this in the tree_matrix variable in christmastree.go, e.g.:
 ```
