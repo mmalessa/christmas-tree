@@ -12,7 +12,7 @@ import (
 const (
 	pin = 18
 	count = 250
-	tick = 30
+	tick = 23
 	brightness = 120
 	baseColor = uint32(0x003000)
 )
@@ -27,6 +27,7 @@ var     rainbow_tail = []uint32 {
             0x000040,  // blue
             0x002020,  // purple
             0x004020,  // pink
+	    0x001000,  // dark red
         }
 
 var white_tail = []uint32 {
@@ -48,22 +49,22 @@ var vertical_tail = []uint32 {
     0x005000,
     0x004000,
     0x003000,
-    0x000020,
-    0x000040,
-    0x000040,
-    0x000060,
-    0x000060,
+    0x000010,
+    0x000030,
+    0x000030,
+    0x000050,
     0x000050,
     0x000040,
     0x000030,
-    0x200000,
-    0x400000,
-    0x400000,
-    0x600000,
-    0x600000,
+    0x000020,
+    0x100000,
+    0x300000,
+    0x300000,
+    0x500000,
     0x500000,
     0x400000,
     0x300000,
+    0x200000,
 }
 
 var carousel_tail = []uint32 {
@@ -112,19 +113,19 @@ func main() {
                 os.Exit(-1)
             }
             for {
-                err = waterfall(vertical_tail[0:7])
-                time.Sleep(4000 * time.Millisecond)
-                err = waterfall(vertical_tail[8:15])
-                time.Sleep(4000 * time.Millisecond)
-                err = waterfall(vertical_tail[16:23])
-                time.Sleep(4000 * time.Millisecond)
-		//err = fallDown(rainbow_tail)
-		//err = carousel()
+                //err = waterfall(vertical_tail[8:15])
+		err = waterfall(vertical_tail[0:7])
+		err = fallDown(rainbow_tail)
+                //time.Sleep(4000 * time.Millisecond)
+                //time.Sleep(4000 * time.Millisecond)
+                //err = waterfall(vertical_tail[16:23])
+                //time.Sleep(4000 * time.Millisecond)
 	        if err != nil {
 		    fmt.Println("Error during wipe " + err.Error())
                     os.Exit(-1)
 	        }
-//                time.Sleep(5000 * time.Millisecond)
+		err = carousel()
+                time.Sleep(1000 * time.Millisecond)
 	    }
 	}
 }
@@ -142,7 +143,7 @@ func fallDown(tail []uint32) error {
         for t :=0; t < taillen; t++ {
            safeSetLed(i + t, tail[t])
         }
-	safeSetLed(i + taillen + 1, baseColor)
+	//safeSetLed(i + taillen + 1, baseColor)
 	err := ws2811.Render()
 	if err != nil {
 	    ws2811.Clear()
@@ -222,7 +223,7 @@ func carousel() error {
                 ws2811.Clear()
                 return err
             }
-            time.Sleep(tick * time.Millisecond)
+            time.Sleep(2 * tick * time.Millisecond)
 	}
     }
 
