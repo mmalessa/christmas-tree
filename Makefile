@@ -1,6 +1,7 @@
 include .env
 
 APP_NAME = christmastree
+BASE_BUILDER_IMAGE = debian
 BASE_GO_IMAGE = golang:1.17.3-alpine3.14
 BASE_TARGET_IMAGE = alpine:3.14
 
@@ -31,6 +32,7 @@ help: ## Outputs this help screen
 config: ## Build dev image
 	@docker build 											\
 	    -t $(REGISTRY)/$(IMAGE_DEV)            			    \
+		--build-arg BASE_BUILDER_IMAGE=$(BASE_BUILDER_IMAGE)\
 		--build-arg BASE_GO_IMAGE=$(BASE_GO_IMAGE)          \
 		--build-arg DEVELOPER_UID=$(DEVELOPER_UID)          \
 		--build-arg APP_NAME=${APP_NAME}					\
@@ -81,3 +83,5 @@ remote-start: ## Start christmastree service on RPI
 remote-stop: ## Stop christmastree service on RPI
 	ssh $(RPI_USER)@$(RPI_IP) 'sudo systemctl stop christmastree.service'
 
+remote-down: ## Poweroff RPI
+	ssh $(RPI_USER)@$(RPI_IP) 'sudo poweroff'
