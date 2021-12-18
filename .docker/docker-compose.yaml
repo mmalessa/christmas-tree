@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  application:
+    image: ${CONTAINER_NAME}:latest
+    container_name: ${APP_NAME}
+    restart: on-failure
+    working_dir: /go/src/${APP_NAME}
+    environment:
+      - CGO_ENABLED:true
+      - LDFLAGS:'-extldflags "-static"'
+      - COMPRESS_BINARY:true
+      - OUTPUT=/bin 
+    volumes:
+      - ../:/go/src/${APP_NAME}
+    command: ['sleep','infinity']
