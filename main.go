@@ -1,81 +1,47 @@
-// Copyright 2018 Jacques Supcik / HEIA-FR
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright 2021 Marcin Malessa
 
 package main
 
 import (
-	"time"
+	"fmt"
 
-	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
+	tree "christmastree/pkg/christmastree"
+
+	"github.com/spf13/viper"
 )
 
-const (
-	brightness = 90
-	ledCounts  = 64
-	sleepTime  = 20
+var (
+	cfgDir string = "/etc/christmastree"
 )
-
-type wsEngine interface {
-	Init() error
-	Render() error
-	Wait() error
-	Fini()
-	Leds(channel int) []uint32
-}
-
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-type colorWipe struct {
-	ws wsEngine
-}
-
-func (cw *colorWipe) setup() error {
-	return cw.ws.Init()
-}
-
-func (cw *colorWipe) display(color uint32) error {
-	for i := 0; i < len(cw.ws.Leds(0)); i++ {
-		cw.ws.Leds(0)[i] = color
-		if err := cw.ws.Render(); err != nil {
-			return err
-		}
-		time.Sleep(sleepTime * time.Millisecond)
-	}
-	return nil
-}
 
 func main() {
-	opt := ws2811.DefaultOptions
-	opt.Channels[0].Brightness = brightness
-	opt.Channels[0].LedCount = ledCounts
+	fmt.Printf("Loading config from: %s\n", cfgDir)
+	LoadConfig(cfgDir)
 
-	dev, err := ws2811.MakeWS2811(&opt)
-	checkError(err)
+	gpioPin := viper.GetInt("strip.gpiopin")
+	ledCount := viper.GetInt("strip.ledcount")
+	brightness := viper.GetInt("strip.brightness")
+	fmt.Printf("Start with gpioPin %d, ledCount %d, brightness %d\n", gpioPin, ledCount, brightness)
 
-	cw := &colorWipe{
-		ws: dev,
+	tr := tree.NewChristmasTree(gpioPin, ledCount, brightness)
+	defer tr.Defer()
+
+	patterns := viper.GetStringMap("patterns")
+	for patternid, patternconfig := range patterns {
+		configmap := patternconfig.(map[string]interface{})
+		templatename := configmap["template"].(string)
+		config := configmap["config"].(map[string]interface{})
+		err := tr.AddPattern(patternid, templatename, config)
+		if err != nil {
+			panic(err)
+		}
 	}
-	checkError(cw.setup())
-	defer dev.Fini()
+
+	playlist := viper.Get("playlist").([]interface{})
 	for {
-		cw.display(uint32(0x0000ff))
-		cw.display(uint32(0x00ff00))
-		cw.display(uint32(0xff0000))
-		cw.display(uint32(0x000000))
+		for _, pattern := range playlist {
+			fmt.Printf("Play pattern id: %s\n", pattern.(string))
+			tr.PlayPattern(pattern.(string))
+		}
 	}
 }

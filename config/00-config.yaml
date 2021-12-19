@@ -1,0 +1,36 @@
+strip:
+  gpiopin: 18
+  ledcount: 50
+  brightness: 80
+  
+playlist:
+  - wipergb
+  - sleep500
+  - wipeblack
+  - sleep500
+  - wipergbfast
+  - wipergbfast
+  - wipeblack
+
+patterns:
+  wipergb:
+    template: wipe
+    config:
+      tick: 20
+      colors: [0xff0000, 0x00ff00, 0x0000ff]
+  wipergbfast:
+    template: wipe
+    config:
+      tick: 8
+      colors: [0xff0000, 0x00ff00, 0x0000ff]
+  wipeblack:
+    template: wipe
+    config:
+      tick: 10
+      colors: [0x000000]
+  sleep500:
+    template: sleep
+    config:
+      time: 500
+
+treematrix: []

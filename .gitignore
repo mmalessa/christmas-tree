@@ -1,2 +1,4 @@
 /bin
 /.env
+/var/*
+!/var/.gitkeep
