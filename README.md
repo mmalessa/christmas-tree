@@ -1,11 +1,11 @@
-Christmas tree lighting control tool - ws2811 strip  
+# Christmas tree lighting control tool - ws2811 strip  
 
-# Requirements
-- Raspberry PI with Raspbian
+## Requirements
+- Raspberry PI (v2 min) with Raspbian
 - docker with buidx package
 - docker-compose
 
-# Hardware
+## Hardware
 ```
 Strip +             --------> +5V
 Strip GND           --------> GND
@@ -16,23 +16,30 @@ RPI PIN 6           --------> GND
 RPI PIN 12          --------> Strip DATA
 ```
 
-# Docker buildx
+## Use Docker buildx
 You can download the latest buildx binary from the Docker buildx releases page on GitHub, 
 `https://github.com/docker/buildx/releases/`
 copy it to ~/.docker/cli-plugins folder with name docker-buildx and change the permission to execute:
-```
+```sh
 chmod a+x ~/.docker/cli-plugins/docker-buildx
 ```
-then
-```
-docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3
-docker buildx ls
 
-## Result
-# NAME/NODE DRIVER/ENDPOINT STATUS  PLATFORMS
-# default * docker                  
-#  default default         running linux/amd64, linux/386, linux/arm64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6
-```
+## Prepare
+- `cp .env.dist .env` and change `RPI_IP` and `RPI_USER`
+- Change (if needed) configuration `/config/*.yaml` files
+- Run `make init` to init PC environment
+- Run `make rpi-authorize` to copy ssh private key to RPI (login without password)
+- Run `make` to compile code
+- Run `make rpi-install` to copy binary file to RPI
+- Run `make rpi-enable-service` to set and enable christmastree service on RPI
+- Run `make rpi-start-service` to start christmastree service
+
+## On every change
+- Run `make`
+- Run `make rpi-stop-service` (if started)
+- Run `make rpi-install`
+- Run `make rpi-start-service`
+
 
 
 ## Links
