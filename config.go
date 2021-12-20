@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -30,7 +29,6 @@ func readConfigsFromDirectory(directory string) {
 	for _, file := range files {
 		fileName := file.Name()
 		if match, _ := regexp.MatchString(`[0-9]{2}.+\.yaml$`, fileName); match {
-			fmt.Printf("Use config file: %s/%s\n", directory, fileName)
 			viper.SetConfigName(fileName)
 			viper.MergeInConfig()
 		}

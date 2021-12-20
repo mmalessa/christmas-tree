@@ -15,13 +15,11 @@ var (
 )
 
 func main() {
-	fmt.Printf("Loading config from: %s\n", cfgDir)
 	LoadConfig(cfgDir)
-
 	gpioPin := viper.GetInt("strip.gpiopin")
 	ledCount := viper.GetInt("strip.ledcount")
 	brightness := viper.GetInt("strip.brightness")
-	fmt.Printf("Start with gpioPin %d, ledCount %d, brightness %d\n", gpioPin, ledCount, brightness)
+	fmt.Printf("Start christmastree with gpioPin %d, ledCount %d, brightness %d\n", gpioPin, ledCount, brightness)
 
 	tr := tree.NewChristmasTree(gpioPin, ledCount, brightness)
 	defer tr.Defer()
@@ -43,7 +41,6 @@ func main() {
 	playlist := viper.Get("playlist").([]interface{})
 	for {
 		for _, pattern := range playlist {
-			fmt.Printf("Play pattern id: %s\n", pattern.(string))
 			tr.PlayPattern(pattern.(string))
 		}
 	}
