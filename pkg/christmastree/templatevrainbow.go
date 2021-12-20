@@ -10,10 +10,11 @@ func (ch *ChristmasTree) PlayTemplateVRainbow(config map[string]interface{}) err
 	matrixw := len(ch.matrix[0])
 	direction := config["direction"].(int)
 	tick := config["tick"].(int)
+	colorlimit := 0.666666 // blue
 
 	if direction == 0 {
 		for w := 0; w < matrixw; w++ {
-			color := ch.GetRainbowColor(w, matrixw-1)
+			color := ch.GetRainbowColor(w, matrixw-1, colorlimit)
 			for h := 0; h < matrixh; h++ {
 				if w < matrixw {
 					ch.dev.Leds(0)[ch.matrix[h][w]] = color
@@ -26,7 +27,7 @@ func (ch *ChristmasTree) PlayTemplateVRainbow(config map[string]interface{}) err
 		}
 	} else {
 		for w := matrixw - 1; w >= 0; w-- {
-			color := ch.GetRainbowColor(w, matrixw-1)
+			color := ch.GetRainbowColor(w, matrixw-1, colorlimit)
 			for h := 0; h < matrixh; h++ {
 				if w >= 0 {
 					ch.dev.Leds(0)[ch.matrix[h][w]] = color

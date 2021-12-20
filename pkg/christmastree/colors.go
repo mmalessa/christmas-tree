@@ -4,10 +4,12 @@ import (
 	gocolor "github.com/gerow/go-color"
 )
 
-func (ch *ChristmasTree) GetRainbowColor(step int, steps int) uint32 {
-	// 240deg 0.666666 (blue)
-	// 300deg 0.833333 (violet)
-	limit := 0.666666
+/*
+	limit
+	240deg 0.666666 (blue)
+	300deg 0.833333 (violet)
+*/
+func (ch *ChristmasTree) GetRainbowColor(step int, steps int, limit float64) uint32 {
 
 	angle := (float64(step) / float64(steps)) * limit
 	return ch.GetColorFromHSL(angle, 1, 0.5)
