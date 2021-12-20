@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+/*
+config:
+	direction: 0		// 0 or 1
+	tick: 100			// sleep time (ms)
+*/
 func (ch *ChristmasTree) PlayTemplateVRainbow(config map[string]interface{}) error {
 
 	matrixh := len(ch.matrix)

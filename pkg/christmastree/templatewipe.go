@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+/*
+config:
+	colors: [0xRRGGBB, 0xRRGGBB]	// wipe color
+	tick: 100						// sleep time (ms)
+*/
 func (ch *ChristmasTree) PlayTemplateWipe(config map[string]interface{}) error {
 	colors := config["colors"].([]interface{})
 	tick := config["tick"].(int)

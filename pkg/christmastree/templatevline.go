@@ -4,6 +4,13 @@ import (
 	"time"
 )
 
+/*
+config:
+	background: 0xRRGGBB	// background color
+	foreground: 0xRRGGBB	// foreground color
+	direction: 0			// 0 or 1
+	tick: 100				// sleep time (ms)
+*/
 func (ch *ChristmasTree) PlayTemplateVLine(config map[string]interface{}) error {
 
 	background := config["background"].(int)

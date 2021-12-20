@@ -4,6 +4,12 @@ import (
 	"time"
 )
 
+/*
+config:
+	normal: 0xRRGGBB	// color of other led
+	fifth: 0xRRGGBB		// color of every fifth led
+	tenth: 0xRRGGBB		// color of every tenth led
+*/
 func (ch *ChristmasTree) PlayTemplateRuler(config map[string]interface{}) error {
 
 	normal := config["normal"].(int)
