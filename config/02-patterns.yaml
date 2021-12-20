@@ -41,6 +41,11 @@ patterns:
       tick: 10
       colors: [0x000000]
 
+  rainbow:
+    template: rainbow
+    config:
+      tick: 30
+
   vrainbow:
     template: vrainbow
     config:
