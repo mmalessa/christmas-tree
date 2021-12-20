@@ -2,11 +2,11 @@ playlist:
   # - ruler
   # - vline
   # - hline
-  # - wipergb
-  # - sleep500
+  - wipergb
+  - sleep500
   - wipeblack
   - sleep500
-  # - wipergbfast
-  # - wipergbfast
-  # - wipeblack
+  - wipergbfast
+  - wipergbfast
+  - wipeblack
   - vrainbow
