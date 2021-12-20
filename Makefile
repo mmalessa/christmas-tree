@@ -88,3 +88,6 @@ rpi-restart-service: ## Restart christmastree service on RPI
 rpi-down: ## Poweroff RPI
 	@echo "Send 'poweroff' to RPI $(RPI_IP)..."
 	@ssh $(RPI_USER)@$(RPI_IP) 'sudo poweroff'
+
+rpi-console: ## SSH RPI console
+	@ssh $(RPI_USER)@$(RPI_IP)
