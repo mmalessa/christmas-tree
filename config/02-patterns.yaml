@@ -1,0 +1,53 @@
+patterns:
+
+  ruler:
+    template: ruler
+    config:
+      normal: 0x666666
+      tenth: 0xFF0000
+      fifth: 0x008800
+
+  vline:
+    template: vline
+    config:
+      background: 0x660000
+      foreground: 0xFFFFFF
+      tick: 1000
+      direction: 1
+
+  hline:
+    template: hline
+    config:
+      background: 0x660000
+      foreground: 0xFFFFFF
+      tick: 1000
+      direction: 1
+
+  wipergb:
+    template: wipe
+    config:
+      tick: 20
+      colors: [0xff0000, 0x00ff00, 0x0000ff]
+
+  wipergbfast:
+    template: wipe
+    config:
+      tick: 5
+      colors: [0xffCC00, 0x00ffCC, 0xCC00ff]
+
+  wipeblack:
+    template: wipe
+    config:
+      tick: 10
+      colors: [0x000000]
+
+  vrainbow:
+    template: vrainbow
+    config:
+      tick: 50
+      direction: 0
+
+  sleep500:
+    template: sleep
+    config:
+      time: 500

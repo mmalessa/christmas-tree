@@ -1,0 +1,4 @@
+strip:
+  gpiopin: 18
+  ledcount: 50
+  brightness: 80
