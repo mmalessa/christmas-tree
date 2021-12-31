@@ -36,7 +36,7 @@ func (ch *ChristmasTree) PlayTemplateRainbowUnicorn(config map[string]interface{
 	}
 
 	for r := 0; r < repeat; r++ {
-		if direction == 0 {
+		if direction == 1 {
 			for offset := 0; offset < rowcount; offset++ {
 				if err := colorTree(offset); err != nil {
 					return err

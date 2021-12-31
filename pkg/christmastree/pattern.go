@@ -18,16 +18,18 @@ func (ch *ChristmasTree) PlayPattern(patternid string) error {
 	template := pattern.template
 
 	switch template {
+	case "sleep":
+		return ch.PlayTemplateSleep(pattern.config)
+	case "ruler":
+		return ch.PlayTemplateRuler(pattern.config)
 	case "wipe":
 		return ch.PlayTemplateWipe(pattern.config)
 	case "vwipe":
 		return ch.PlayTemplateVWipe(pattern.config)
 	case "rainbow":
 		return ch.PlayTemplateRainbow(pattern.config)
-	case "sleep":
-		return ch.PlayTemplateSleep(pattern.config)
-	case "ruler":
-		return ch.PlayTemplateRuler(pattern.config)
+	case "vrainbow":
+		return ch.PlayTemplateVRainbow(pattern.config)
 	case "rainbowunicorn":
 		return ch.PlayTemplateRainbowUnicorn(pattern.config)
 	}

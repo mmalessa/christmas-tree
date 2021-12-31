@@ -37,7 +37,14 @@ patterns:
     config:
       repeat: 10
       tick: 100
-      direction: 0
+      direction: 1
+
+  vrainbow:
+    template: vrainbow
+    config:
+      repeat: 1
+      tick: 100
+      direction: 1
 
   sleep500:
     template: sleep
