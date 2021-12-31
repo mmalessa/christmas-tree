@@ -7,22 +7,6 @@ patterns:
       tenth: 0xFF0000
       fifth: 0x008800
 
-  vline:
-    template: vline
-    config:
-      background: 0x660000
-      foreground: 0xFFFFFF
-      tick: 1000
-      direction: 1
-
-  hline:
-    template: hline
-    config:
-      background: 0x660000
-      foreground: 0xFFFFFF
-      tick: 1000
-      direction: 1
-
   wipergb:
     template: wipe
     config:
@@ -30,34 +14,30 @@ patterns:
       colors: [0xff0000, 0x00ff00, 0x0000ff, 0xffCC00, 0x00ffCC, 0xCC00ff]
 
   wipeblack:
-    template: wipe
+    template: vwipe
     config:
-      tick: 4
+      tick: 100
       colors: [0x000000]
+      direction: 1
 
   vwipergb:
     template: vwipe
     config:
       tick: 100
-      colors: [0xDD0000, 0xFFAA00, 0x00AA00, 0x00AA88, 0x000088, 0x8800AA]
+      colors: [0xFF0000, 0xFFAA00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF]
+      direction: 1
 
   rainbow:
     template: rainbow
     config:
-      tick: 30
+      tick: 10
 
   rainbowunicorn:
     template: rainbowunicorn
     config:
       repeat: 10
-      tick: 70
+      tick: 100
       direction: 0
-  rainbowunicornrev:
-    template: rainbowunicorn
-    config:
-      repeat: 10
-      tick: 70
-      direction: 1
 
   sleep500:
     template: sleep
