@@ -10,7 +10,7 @@ type ChristmasTree struct {
 	brightness int
 	dev        *ws2811.WS2811
 	patterns   map[string]ChristmasTreePattern
-	matrix     map[int]map[int]int
+	treeconfig map[string]interface{}
 }
 
 func NewChristmasTree(gpioPin int, ledCount int, brightness int) *ChristmasTree {
@@ -19,7 +19,6 @@ func NewChristmasTree(gpioPin int, ledCount int, brightness int) *ChristmasTree 
 		ledCount:   ledCount,
 		brightness: brightness,
 		patterns:   make(map[string]ChristmasTreePattern),
-		matrix:     make(map[int]map[int]int),
 	}
 	opt := ws2811.DefaultOptions
 	opt.Channels[0].GpioPin = ch.gpioPin
@@ -53,4 +52,8 @@ func (ch *ChristmasTree) TurnOff() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (ch *ChristmasTree) SetTreeConfig(treeconfig interface{}) {
+	ch.treeconfig = treeconfig.(map[string]interface{})
 }

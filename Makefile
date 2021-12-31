@@ -59,7 +59,7 @@ rpi-authorize: ## (keygen &&) ssh-copy-id
 rpi-install: ## Send binary and config to RPI
 	@echo "Send binary and config to RPI"
 	scp ./bin/$(APP_NAME) $(RPI_USER)@$(RPI_IP):~/bin/
-	@ssh $(RPI_USER)@$(RPI_IP) 'rm ~/bin/config/*.yaml -f'
+	@ssh $(RPI_USER)@$(RPI_IP) 'rm ~/bin/config/0*.yaml -f'
 	scp ./config/* $(RPI_USER)@$(RPI_IP):~/bin/config/
 
 

@@ -20,6 +20,8 @@ func (ch *ChristmasTree) PlayPattern(patternid string) error {
 	switch template {
 	case "wipe":
 		return ch.PlayTemplateWipe(pattern.config)
+	case "vwipe":
+		return ch.PlayTemplateVWipe(pattern.config)
 	case "rainbow":
 		return ch.PlayTemplateRainbow(pattern.config)
 	case "sleep":

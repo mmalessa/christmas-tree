@@ -6,8 +6,6 @@ playlist:
   - sleep500
   - wipeblack
   - sleep500
-  - wipergbfast
-  - wipergbfast
   - wipeblack
   - vrainbow
   - wipeblack

@@ -35,8 +35,7 @@ func main() {
 		}
 	}
 
-	yamlmatrix := viper.Get("treematrix")
-	buildTreeMatrix(tr, yamlmatrix)
+	tr.SetTreeConfig(viper.Get("tree"))
 
 	playlist := viper.Get("playlist").([]interface{})
 	for {
@@ -44,19 +43,4 @@ func main() {
 			tr.PlayPattern(pattern.(string))
 		}
 	}
-}
-
-func buildTreeMatrix(tr *tree.ChristmasTree, yamlmatrix interface{}) error {
-	var matrix map[int]map[int]int
-	matrix = make(map[int]map[int]int)
-	rows := yamlmatrix.([]interface{})
-	for nr, row := range rows {
-		matrix[nr] = make(map[int]int)
-		columns := row.([]interface{})
-		for nc, value := range columns {
-			matrix[nr][nc] = value.(int)
-		}
-	}
-	tr.SetMatrix(matrix)
-	return nil
 }
