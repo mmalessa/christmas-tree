@@ -28,12 +28,8 @@ func (ch *ChristmasTree) PlayPattern(patternid string) error {
 		return ch.PlayTemplateSleep(pattern.config)
 	case "ruler":
 		return ch.PlayTemplateRuler(pattern.config)
-	case "vline":
-		return ch.PlayTemplateVLine(pattern.config)
-	case "hline":
-		return ch.PlayTemplateHLine(pattern.config)
-	case "vrainbow":
-		return ch.PlayTemplateVRainbow(pattern.config)
+	case "rainbowunicorn":
+		return ch.PlayTemplateRainbowUnicorn(pattern.config)
 	}
 
 	return nil

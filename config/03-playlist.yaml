@@ -1,14 +1,9 @@
 playlist:
   # - ruler
-  # - vline
-  # - hline
   - wipergb
   - sleep500
   - wipeblack
+  - rainbowunicorn
+  - wipeblack
+  - rainbow
   - sleep500
-  - wipeblack
-  - vrainbow
-  - wipeblack
-  - rainbow
-  - wipeblack
-  - rainbow

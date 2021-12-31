@@ -32,7 +32,7 @@ patterns:
   wipeblack:
     template: wipe
     config:
-      tick: 10
+      tick: 4
       colors: [0x000000]
 
   vwipergb:
@@ -46,11 +46,18 @@ patterns:
     config:
       tick: 30
 
-  vrainbow:
-    template: vrainbow
+  rainbowunicorn:
+    template: rainbowunicorn
     config:
-      tick: 50
+      repeat: 10
+      tick: 70
       direction: 0
+  rainbowunicornrev:
+    template: rainbowunicorn
+    config:
+      repeat: 10
+      tick: 70
+      direction: 1
 
   sleep500:
     template: sleep
